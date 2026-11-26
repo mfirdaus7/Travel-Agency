@@ -12,7 +12,6 @@ function getImage(imageName) {
   return images[`../assets/images/${imageName}`] || "";
 }
 
-// Timezone mapping for each destination
 const timeZones = {
   "Sydney, Australia": "Australia/Sydney",
   "Melbourne, Australia": "Australia/Melbourne",
@@ -26,7 +25,6 @@ const timeZones = {
   "Copacabana Beach, Brazil": "America/Sao_Paulo",
 };
 
-// Combine all destinations into one searchable list
 const locations = [
   ...travelData.countries.flatMap((country) =>
     country.cities.map((city) => ({
@@ -49,7 +47,6 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Update time every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
@@ -58,18 +55,25 @@ function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
-  // Filter locations based on search input
+  // Search by name, description, country or category
   const filteredLocations = locations.filter((location) => {
-    const keyword = search.toLowerCase();
+    const keyword = search.trim().toLowerCase();
 
-    return (
-      location.name.toLowerCase().includes(keyword) ||
-      location.description.toLowerCase().includes(keyword) ||
-      (location.country || "").toLowerCase().includes(keyword)
-    );
+    if (!keyword) return false;
+
+    const searchableText = [
+      location.name,
+      location.description,
+      location.country,
+      location.category,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    return searchableText.includes(keyword);
   });
 
-  // Format local date and time
   function getLocalDateTime(locationName) {
     const timeZone = timeZones[locationName];
 
@@ -104,13 +108,11 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
       <div className="container">
-        {/* Brand */}
         <Link className="navbar-brand fw-bold text-primary" to="/">
           <i className="bi bi-airplane-fill me-2"></i>
           Travel Explorer
         </Link>
 
-        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -124,7 +126,6 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="mainNavbar">
-          {/* Navigation */}
           <ul className="navbar-nav ms-auto align-items-lg-center">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
@@ -145,7 +146,6 @@ function Navbar() {
             </li>
           </ul>
 
-          {/* Search Bar */}
           <div className="navbar-search ms-lg-3">
             <div className="input-group">
               <span className="input-group-text bg-white">
@@ -155,7 +155,7 @@ function Navbar() {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search location..."
+                placeholder="Search destination, temple, beach..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -172,7 +172,6 @@ function Navbar() {
               )}
             </div>
 
-            {/* Search Results */}
             {search.trim() && (
               <div className="search-results shadow">
                 <div className="search-results-header">
@@ -189,7 +188,6 @@ function Navbar() {
                         className="search-result-item"
                       >
                         <div className="row g-3">
-                          {/* Location Image */}
                           <div className="col-4">
                             <img
                               src={getImage(location.imageUrl)}
@@ -198,7 +196,6 @@ function Navbar() {
                             />
                           </div>
 
-                          {/* Location Details */}
                           <div className="col-8">
                             <span className="badge bg-primary mb-1">
                               {location.category}
