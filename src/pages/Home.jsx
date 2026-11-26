@@ -1,4 +1,4 @@
-import travelData from "../data/travelData.json";
+import useTravelData from "../hooks/useTravelData";
 
 const images = import.meta.glob("../assets/images/*", {
   eager: true,
@@ -10,7 +10,6 @@ function getImage(imageName) {
   return images[`../assets/images/${imageName}`] || "";
 }
 
-// Reusable component for destination cards
 function DestinationCard({ name, imageUrl, description }) {
   return (
     <div className="col-md-6 col-lg-4">
@@ -23,10 +22,9 @@ function DestinationCard({ name, imageUrl, description }) {
 
         <div className="card-body d-flex flex-column">
           <h5 className="card-title fw-bold">{name}</h5>
-
           <p className="card-text text-muted">{description}</p>
 
-          <a href="/contact" className="btn btn-outline-primary mt-auto">
+          <a href="#/contact" className="btn btn-outline-primary mt-auto">
             Explore More
           </a>
         </div>
@@ -36,9 +34,28 @@ function DestinationCard({ name, imageUrl, description }) {
 }
 
 function Home() {
+  const { travelData, loading, error } = useTravelData();
+
+  if (loading) {
+    return (
+      <div className="container text-center py-5">
+        <div className="spinner-border text-primary"></div>
+        <p className="mt-3">Loading destinations...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container text-center py-5">
+        <h4 className="text-danger">Unable to load destinations</h4>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      {/* Hero Section */}
       <section className="hero-section text-white">
         <div className="container">
           <div className="row align-items-center min-vh-75">
@@ -65,13 +82,10 @@ function Home() {
         </div>
       </section>
 
-      {/* Countries and Cities */}
       <section id="destinations" className="container py-5">
         <div className="text-center mb-5">
           <span className="text-primary fw-semibold">EXPLORE THE WORLD</span>
-
           <h2 className="fw-bold mt-2">Popular Destinations</h2>
-
           <p className="text-muted">
             Discover amazing cities around the world.
           </p>
@@ -98,14 +112,11 @@ function Home() {
         ))}
       </section>
 
-      {/* Temples Section */}
       <section className="bg-light py-5">
         <div className="container">
           <div className="text-center mb-5">
             <span className="text-primary fw-semibold">HISTORY & CULTURE</span>
-
             <h2 className="fw-bold mt-2">Famous Temples</h2>
-
             <p className="text-muted">
               Explore beautiful historical landmarks.
             </p>
@@ -124,13 +135,10 @@ function Home() {
         </div>
       </section>
 
-      {/* Beaches Section */}
       <section className="container py-5">
         <div className="text-center mb-5">
           <span className="text-primary fw-semibold">PARADISE AWAITS</span>
-
           <h2 className="fw-bold mt-2">Beautiful Beaches</h2>
-
           <p className="text-muted">
             Relax and enjoy some of the world's most beautiful beaches.
           </p>
@@ -148,14 +156,12 @@ function Home() {
         </div>
       </section>
 
-      {/* Call To Action */}
       <section className="bg-primary text-white py-5">
         <div className="container text-center">
           <h2 className="fw-bold">Ready for Your Next Adventure?</h2>
-
           <p className="lead">Let us help you plan your perfect holiday.</p>
 
-          <a href="/contact" className="btn btn-warning btn-lg mt-3">
+          <a href="#/contact" className="btn btn-warning btn-lg mt-3">
             Contact Us
             <i className="bi bi-arrow-right ms-2"></i>
           </a>
