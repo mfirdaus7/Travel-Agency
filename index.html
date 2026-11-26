@@ -14,7 +14,84 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+
+      <!-- Home Section -->
+      <header id="home">
+        <nav aria-label="Main navigation">
+          <a href="#/">Home</a>
+          <a href="#/about">About Us</a>
+          <a href="#/contact">Contact Us</a>
+        </nav>
+
+        <main>
+          <h1>Welcome to Travel Explorer</h1>
+
+          <p>
+            Travel Explorer is a travel recommendation website that helps
+            travelers discover amazing destinations around the world.
+            Explore beautiful countries, exciting cities, historical temples
+            and stunning beaches.
+          </p>
+
+          <p>
+            Find travel inspiration and discover your next unforgettable
+            adventure with Travel Explorer.
+          </p>
+        </main>
+      </header>
+
+      <!-- About Us Section -->
+      <section id="about">
+        <h2>About Us</h2>
+
+        <p>
+          Travel Explorer is dedicated to helping people explore the world
+          by providing travel information and recommendations for exciting
+          destinations.
+        </p>
+
+        <h3>Our Mission</h3>
+        <p>
+          To inspire people to explore the world by providing accessible
+          destination information and travel inspiration.
+        </p>
+
+        <h3>Our Vision</h3>
+        <p>
+          To become a trusted platform where travelers discover destinations
+          and create unforgettable memories.
+        </p>
+      </section>
+
+      <!-- Contact Us Section -->
+      <section id="contact">
+        <h2>Contact Us</h2>
+
+        <p>
+          Have questions or need more information about a destination?
+          Get in touch with the Travel Explorer team.
+        </p>
+
+        <p>Email: info@travelexplorer.com</p>
+        <p>Phone: +60 12-345 6789</p>
+
+        <form>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+
+    </div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
