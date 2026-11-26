@@ -26,6 +26,17 @@ const timeZones = {
 };
 
 const locations = [
+  // Countries
+  ...travelData.countries.map((country) => ({
+    id: `country-${country.name}`,
+    name: country.name,
+    category: "Country",
+    description: `Explore ${country.name} and discover ${country.cities.map((city) => city.name).join(", ")}.`,
+    imageUrl: country.cities[0]?.imageUrl,
+    country: country.name,
+  })),
+
+  // Cities
   ...travelData.countries.flatMap((country) =>
     country.cities.map((city) => ({
       ...city,
@@ -33,10 +44,14 @@ const locations = [
       category: "City",
     })),
   ),
+
+  // Temples
   ...travelData.temples.map((temple) => ({
     ...temple,
     category: "Temple",
   })),
+
+  // Beaches
   ...travelData.beaches.map((beach) => ({
     ...beach,
     category: "Beach",
