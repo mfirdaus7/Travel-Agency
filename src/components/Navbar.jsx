@@ -25,13 +25,16 @@ const timeZones = {
   "Copacabana Beach, Brazil": "America/Sao_Paulo",
 };
 
+// All searchable locations
 const locations = [
   // Countries
   ...travelData.countries.map((country) => ({
     id: `country-${country.name}`,
     name: country.name,
     category: "Country",
-    description: `Explore ${country.name} and discover ${country.cities.map((city) => city.name).join(", ")}.`,
+    description: `Explore ${country.name} and discover ${country.cities
+      .map((city) => city.name)
+      .join(", ")}.`,
     imageUrl: country.cities[0]?.imageUrl,
     country: country.name,
   })),
@@ -60,8 +63,10 @@ const locations = [
 
 function Navbar() {
   const [search, setSearch] = useState("");
+  const [submittedSearch, setSubmittedSearch] = useState("");
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Update time every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
@@ -70,11 +75,28 @@ function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
-  // Search by name, description, country or category
+  // Search when button is clicked
+  function handleSearch(e) {
+    e.preventDefault();
+    setSubmittedSearch(search.trim());
+  }
+
+  // Clear search
+  function clearSearch() {
+    setSearch("");
+    setSubmittedSearch("");
+  }
+
+  // Filter search results
   const filteredLocations = locations.filter((location) => {
-    const keyword = search.trim().toLowerCase();
+    const keyword = submittedSearch.toLowerCase();
 
     if (!keyword) return false;
+
+    // Search all country records when keyword is "country"
+    if (keyword === "country") {
+      return location.category === "Country";
+    }
 
     const searchableText = [
       location.name,
@@ -89,6 +111,7 @@ function Navbar() {
     return searchableText.includes(keyword);
   });
 
+  // Get destination local date and time
   function getLocalDateTime(locationName) {
     const timeZone = timeZones[locationName];
 
@@ -116,18 +139,16 @@ function Navbar() {
     };
   }
 
-  function clearSearch() {
-    setSearch("");
-  }
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
       <div className="container">
+        {/* Brand */}
         <Link className="navbar-brand fw-bold text-primary" to="/">
           <i className="bi bi-airplane-fill me-2"></i>
           Travel Explorer
         </Link>
 
+        {/* Mobile Toggle */}
         <button
           className="navbar-toggler"
           type="button"
@@ -141,6 +162,7 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="mainNavbar">
+          {/* Navigation */}
           <ul className="navbar-nav ms-auto align-items-lg-center">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
@@ -161,33 +183,39 @@ function Navbar() {
             </li>
           </ul>
 
+          {/* Search Bar */}
           <div className="navbar-search ms-lg-3">
-            <div className="input-group">
-              <span className="input-group-text bg-white">
-                <i className="bi bi-search"></i>
-              </span>
+            <form onSubmit={handleSearch}>
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search destination, temple, beach..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
 
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search destination, temple, beach..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+                {search && (
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={clearSearch}
+                    aria-label="Clear search"
+                    title="Clear search"
+                  >
+                    <i className="bi bi-x-lg"></i>
+                  </button>
+                )}
 
-              {search && (
-                <button
-                  className="btn btn-outline-secondary"
-                  type="button"
-                  onClick={clearSearch}
-                  aria-label="Clear search"
-                >
-                  <i className="bi bi-x-lg"></i>
+                <button className="btn btn-primary" type="submit">
+                  <i className="bi bi-search me-1"></i>
+                  Search
                 </button>
-              )}
-            </div>
+              </div>
+            </form>
 
-            {search.trim() && (
+            {/* Search Results */}
+            {submittedSearch && (
               <div className="search-results shadow">
                 <div className="search-results-header">
                   Search Results ({filteredLocations.length})
@@ -203,6 +231,7 @@ function Navbar() {
                         className="search-result-item"
                       >
                         <div className="row g-3">
+                          {/* Image */}
                           <div className="col-4">
                             <img
                               src={getImage(location.imageUrl)}
@@ -211,6 +240,7 @@ function Navbar() {
                             />
                           </div>
 
+                          {/* Details */}
                           <div className="col-8">
                             <span className="badge bg-primary mb-1">
                               {location.category}

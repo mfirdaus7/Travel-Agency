@@ -36,10 +36,12 @@ function Contact() {
   function handleChange(e) {
     const { name, value } = e.target;
 
-    setFormData({
-      ...formData,
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
-    });
+    }));
+
+    setSubmitted(false);
   }
 
   function handleSubmit(e) {
@@ -57,7 +59,6 @@ function Contact() {
 
   return (
     <>
-      {/* Contact Hero */}
       <section className="contact-hero text-white">
         <div className="container text-center">
           <h1 className="display-4 fw-bold">Contact Us</h1>
@@ -67,10 +68,8 @@ function Contact() {
         </div>
       </section>
 
-      {/* Contact Information and Form */}
       <section className="container py-5">
         <div className="row g-5">
-          {/* Contact Information */}
           <div className="col-lg-4">
             <span className="text-primary fw-semibold">GET IN TOUCH</span>
 
@@ -116,14 +115,13 @@ function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
           <div className="col-lg-8">
             <div className="card border-0 shadow-sm">
               <div className="card-body p-4 p-md-5">
                 <h3 className="fw-bold mb-4">Send Us a Message</h3>
 
                 {submitted && (
-                  <div className="alert alert-success">
+                  <div className="alert alert-success" role="alert">
                     <i className="bi bi-check-circle-fill me-2"></i>
                     Your message has been submitted successfully!
                   </div>
@@ -132,11 +130,15 @@ function Contact() {
                 <form onSubmit={handleSubmit}>
                   <div className="row g-3">
                     <div className="col-md-6">
-                      <label className="form-label fw-semibold">
-                        Full Name
+                      <label
+                        htmlFor="contact-name"
+                        className="form-label fw-semibold"
+                      >
+                        Name
                       </label>
                       <input
                         type="text"
+                        id="contact-name"
                         name="name"
                         className="form-control"
                         placeholder="Enter your name"
@@ -147,11 +149,15 @@ function Contact() {
                     </div>
 
                     <div className="col-md-6">
-                      <label className="form-label fw-semibold">
-                        Email Address
+                      <label
+                        htmlFor="contact-email"
+                        className="form-label fw-semibold"
+                      >
+                        Email
                       </label>
                       <input
                         type="email"
+                        id="contact-email"
                         name="email"
                         className="form-control"
                         placeholder="Enter your email"
@@ -162,8 +168,14 @@ function Contact() {
                     </div>
 
                     <div className="col-md-6">
-                      <label className="form-label fw-semibold">Subject</label>
+                      <label
+                        htmlFor="contact-subject"
+                        className="form-label fw-semibold"
+                      >
+                        Subject
+                      </label>
                       <select
+                        id="contact-subject"
                         name="subject"
                         className="form-select"
                         value={formData.subject}
@@ -183,11 +195,15 @@ function Contact() {
                     </div>
 
                     <div className="col-md-6">
-                      <label className="form-label fw-semibold">
+                      <label
+                        htmlFor="contact-destination"
+                        className="form-label fw-semibold"
+                      >
                         Preferred Destination
                       </label>
                       <input
                         type="text"
+                        id="contact-destination"
                         name="destination"
                         className="form-control"
                         placeholder="e.g. Japan, Australia"
@@ -197,8 +213,14 @@ function Contact() {
                     </div>
 
                     <div className="col-12">
-                      <label className="form-label fw-semibold">Message</label>
+                      <label
+                        htmlFor="contact-message"
+                        className="form-label fw-semibold"
+                      >
+                        Message
+                      </label>
                       <textarea
+                        id="contact-message"
                         name="message"
                         className="form-control"
                         rows="5"
@@ -214,7 +236,7 @@ function Contact() {
                         type="submit"
                         className="btn btn-primary btn-lg w-100"
                       >
-                        Send Message
+                        Submit
                         <i className="bi bi-send ms-2"></i>
                       </button>
                     </div>
@@ -226,7 +248,6 @@ function Contact() {
         </div>
       </section>
 
-      {/* Our Team */}
       <section className="bg-light py-5">
         <div className="container">
           <div className="text-center mb-5">
@@ -262,13 +283,25 @@ function Contact() {
                   </div>
 
                   <div className="d-flex justify-content-center gap-3 pb-2">
-                    <a href="#!" className="text-primary fs-5">
+                    <a
+                      href="#!"
+                      className="text-primary fs-5"
+                      aria-label="Facebook"
+                    >
                       <i className="bi bi-facebook"></i>
                     </a>
-                    <a href="#!" className="text-primary fs-5">
+                    <a
+                      href="#!"
+                      className="text-primary fs-5"
+                      aria-label="Instagram"
+                    >
                       <i className="bi bi-instagram"></i>
                     </a>
-                    <a href="#!" className="text-primary fs-5">
+                    <a
+                      href="#!"
+                      className="text-primary fs-5"
+                      aria-label="LinkedIn"
+                    >
                       <i className="bi bi-linkedin"></i>
                     </a>
                   </div>
