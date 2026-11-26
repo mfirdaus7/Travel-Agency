@@ -59,6 +59,26 @@ function About() {
     },
   ];
 
+  const teamMembers = [
+    {
+      name: "Sarah Johnson",
+      role: "Travel Consultant",
+      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500",
+    },
+    {
+      name: "Michael Chen",
+      role: "Tour Coordinator",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500",
+    },
+    {
+      name: "Emily Davis",
+      role: "Customer Support",
+      image:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500",
+    },
+  ];
+
   return (
     <>
       {/* About Hero */}
@@ -164,6 +184,44 @@ function About() {
             </div>
           ))}
         </div>
+
+        {/* Our Team */}
+        <section className="container py-5">
+          <div className="text-center mb-5">
+            <span className="text-primary fw-semibold">MEET OUR PEOPLE</span>
+
+            <h2 className="fw-bold mt-2">Our Travel Team</h2>
+
+            <p className="text-muted">
+              Meet the people behind Travel Explorer who are dedicated to making
+              your travel experience memorable.
+            </p>
+          </div>
+
+          <div className="row g-4 justify-content-center">
+            {teamMembers.map((member, index) => (
+              <div className="col-md-4 col-lg-3" key={index}>
+                <div className="card border-0 shadow-sm h-100 text-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="card-img-top"
+                    style={{
+                      height: "280px",
+                      objectFit: "cover",
+                    }}
+                  />
+
+                  <div className="card-body">
+                    <h5 className="fw-bold">{member.name}</h5>
+
+                    <p className="text-primary mb-0">{member.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
 
       {/* Team Member Guidelines */}
