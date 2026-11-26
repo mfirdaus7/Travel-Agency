@@ -20,6 +20,45 @@ function About() {
     },
   ];
 
+  const teamGuidelines = [
+    {
+      icon: "bi-info-circle",
+      title: "Provide Accurate Information",
+      description:
+        "Always provide accurate and updated information about travel destinations, attractions and services.",
+    },
+    {
+      icon: "bi-chat-dots",
+      title: "Communicate Professionally",
+      description:
+        "Respond to customer enquiries politely, clearly and professionally.",
+    },
+    {
+      icon: "bi-people",
+      title: "Work as a Team",
+      description:
+        "Support fellow team members, share knowledge and collaborate to deliver excellent customer service.",
+    },
+    {
+      icon: "bi-shield-lock",
+      title: "Protect Customer Privacy",
+      description:
+        "Keep customer information confidential and handle personal data responsibly.",
+    },
+    {
+      icon: "bi-clock",
+      title: "Be Responsible",
+      description:
+        "Complete assigned tasks on time and keep customers informed about their travel enquiries.",
+    },
+    {
+      icon: "bi-star",
+      title: "Maintain Service Quality",
+      description:
+        "Strive to provide a friendly, reliable and memorable experience for every traveler.",
+    },
+  ];
+
   return (
     <>
       {/* About Hero */}
@@ -127,6 +166,43 @@ function About() {
         </div>
       </section>
 
+      {/* Team Member Guidelines */}
+      <section className="bg-light py-5">
+        <div className="container">
+          <div className="text-center mb-5">
+            <span className="text-primary fw-semibold">
+              TEAM RESPONSIBILITIES
+            </span>
+
+            <h2 className="fw-bold mt-2">Our Team Guidelines</h2>
+
+            <p className="text-muted mx-auto" style={{ maxWidth: "700px" }}>
+              These guidelines help our team members work together, maintain
+              service quality and provide the best travel experience for our
+              customers.
+            </p>
+          </div>
+
+          <div className="row g-4">
+            {teamGuidelines.map((guideline, index) => (
+              <div className="col-md-6 col-lg-4" key={index}>
+                <div className="card border-0 shadow-sm h-100 p-4">
+                  <div className="mb-3">
+                    <i className={`bi ${guideline.icon} fs-1 text-primary`}></i>
+                  </div>
+
+                  <h5 className="fw-bold">
+                    {index + 1}. {guideline.title}
+                  </h5>
+
+                  <p className="text-muted mb-0">{guideline.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Call To Action */}
       <section className="bg-primary text-white py-5">
         <div className="container text-center">
@@ -136,7 +212,7 @@ function About() {
             The world is waiting. Let's explore it together.
           </p>
 
-          <a href="/contact" className="btn btn-warning btn-lg mt-3">
+          <a href="#/contact" className="btn btn-warning btn-lg mt-3">
             Contact Us
           </a>
         </div>
