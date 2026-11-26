@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import Home from "./pages/Homes";
+import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.PROD ? "/Travel-Agency" : "/"}>
       <Navbar />
 
       <Routes>
