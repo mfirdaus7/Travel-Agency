@@ -7,13 +7,13 @@ import Contact from "./pages/Contact";
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.PROD ? "/Travel-Agency" : "/"}>
+    <BrowserRouter basename="/Travel-Agency/">
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
